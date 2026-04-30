@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="showPage('home')">
+        <img src="images/PowerIcon.png" alt="Logo">
+    </div>
+
+    <nav>
+        <ul>
+            <li onclick="showPage('home')" id="nav-home" class="active">Home</li>
+            <li onclick="showPage('tv')" id="nav-tv">Televisions</li>
+            <li onclick="showPage('storyboard')" id="nav-storyboard">Storyboard</li>
+            <li onclick="showPage('about')" id="nav-about">About Us</li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <!-- home -->
+    <section id="home">
+        <h1>Home</h1>
+        <p>Welcome to the Appliance Energy Consumption Website.</p>
+        <p>This site explores energy usage of household appliances in Australia.</p>
+    </section>
+
+    <!-- television -->
+    <section id="tv" style="display:none;">
+        <h1>Televisions Energy Usage</h1>
+        <p>Sample data for TV energy consumption in Australia.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Size (inch)</th>
+                    <th>Power Usage (W)</th>
+                    <th>Energy Rating</th>
+                </tr>
+            </thead>
+            <tbody id="tv-table-body">
+                <!-- CSV data will appear -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- storyboard -->
+    <section id="storyboard" style="display:none;">
+        <h1>Storyboard</h1>
+        <p>Explore visual stories about television energy usage in Australia.</p>
+
+        <div class="home-grid">
+
+            <!-- Card 1: TV Screen Frequency -->
+            <div class="home-card">
+                <div class="home-card-icon">📺</div>
+                <h2>TV Screen Frequency in Australia</h2>
+                <p>
+                    Find out which TV Screens are the most frequent in Australia.
+                </p>
+                <a href="#" class="storyboard-link" onclick="openStoryboard('frequency')">
+                    📖 View Storyboard
+                </a>
+            </div>
+
+            <!-- Card 2: Screen Technology Power Consumption -->
+            <div class="home-card">
+                <div class="home-card-icon">⚡</div>
+                <h2>Screen Technology Power Consumption</h2>
+                <p>
+                    Compare how different screen technologies consume varying amounts of electricity.
+                </p>
+                <a href="#" class="storyboard-link" onclick="openStoryboard('technology')">
+                    📖 View Storyboard
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- about -->
+    <section id="about" style="display:none;">
+        <h1>About Us</h1>
+
+        <div class="about-container">
+
+            <div class="about-card">
+                <h2>Who We Are</h2>
+                <p>
+                    This website was developed as part of an academic project to raise awareness about
+                    household appliance energy consumption. It focuses on helping users understand how
+                    everyday appliances, such as televisions, impact electricity usage.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2>Our Goal</h2>
+                <p>
+                    Our goal is to provide simple and accessible information that allows users to make
+                    smarter decisions when choosing appliances. By understanding energy usage, users
+                    can reduce electricity costs and contribute to a more sustainable environment.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2>What We Provide</h2>
+                <ul>
+                    <li>📊 Realistic appliance energy data</li>
+                    <li>📺 Television power consumption insights</li>
+                    <li>⚡ Easy-to-read comparison tables</li>
+                    <li>🌱 Awareness of energy efficiency</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h2>Future Improvements</h2>
+                <p>
+                    In the future, this platform can be expanded to include more appliances,
+                    interactive charts, and personalized recommendations for energy-saving solutions.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Tee Ming Jun | INTI International Subang</p>
+</footer>
+
+<!-- ===== STORYBOARD MODAL ===== -->
+<div id="storyboard-modal" class="modal-overlay" onclick="closeStoryboardOnOverlay(event)">
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h2 id="modal-title">Storyboard</h2>
+            <button class="modal-close" onclick="closeStoryboard()">✕</button>
+        </div>
+
+        <!-- Slideshow -->
+        <div class="slideshow-container">
+            <div class="slide-image-wrapper">
+                <img id="slide-img" src="" alt="Storyboard Panel">
+                <div class="slide-placeholder" id="slide-placeholder">
+                    <span class="placeholder-icon">🖼️</span>
+                    <span class="placeholder-label" id="placeholder-label">Panel 1</span>
+                </div>
+            </div>
+
+            <p id="slide-desc" class="slide-description">Description goes here.</p>
+
+            <div class="slide-nav">
+                <button class="slide-btn" onclick="prevSlide()">&#8592; Prev</button>
+                <span id="slide-counter" class="slide-counter">1 / 6</span>
+                <button class="slide-btn" onclick="nextSlide()">Next &#8594;</button>
+            </div>
+
+            <!-- Dot indicators -->
+            <div class="slide-dots" id="slide-dots"></div>
+        </div>
+
+    </div>
+</div>
+
+<script src="./js/script.js"></script>
+</body>
+</html>

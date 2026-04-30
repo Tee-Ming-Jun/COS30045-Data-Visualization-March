@@ -87,7 +87,8 @@ Artificial Intelligence (AI) tools may have been used to assist with aspects of 
 - Improving code structure
 - Assisting with documentation writing
 
-All AI-generated assistance was reviewed, modified where necessary, and integrated responsibly into the project.
+Ai were used to support this assignment in generating example code, improving code structure and creating the storyboard section. 
+AI image generation tools were also used to produce the visual panels for the storyboard. All AI-generated assistance was reviewed, modified where necessary, and integrated responsibly into the project.
 
 ---
 
@@ -101,4 +102,4 @@ The website includes:
 - Text explanations that help readers understand the meaning of the visualisations
 - Context that connects the data to real-world implications
 
-The aim is to guide the viewer through the data in a way that is **informative, engaging, and easy to understand**.
+The aim is to guide the viewer through the data in a way that is **informative, engaging, and easy to understand**.s
