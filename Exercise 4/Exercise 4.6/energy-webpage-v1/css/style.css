@@ -504,3 +504,21 @@ footer {
     box-sizing: border-box;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
+
+/* ── D3 Bar Chart Labels ── */
+.bar-label {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #333;
+    text-anchor: end;
+}
+
+.bar-value {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #333;
+}
+
+.bar-rect {
+    fill: blue;
+}

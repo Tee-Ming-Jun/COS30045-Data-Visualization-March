@@ -221,33 +221,28 @@ function loadCSV() {
 
 
 function loadD3CSV() {
-
     d3.csv("data/TV_data.csv", d => {
-
-        console.log(d);
-
-    return {
-        brand: d["Brand_Reg"],
-        power: +d["Avg_mode_power"]  // ✅ matches your CSV
-    };
-
+        return {
+            brand: d["Brand_Reg"],
+            power: +d["Avg_mode_power"]
+        };
     }).then(data => {
 
-        console.log(data);
+        // Aggregate: average power per brand
+        const aggregated = Array.from(
+            d3.rollup(
+                data,
+                v => d3.mean(v, d => d.power),  // or d3.max if you prefer
+                d => d.brand
+            ),
+            ([brand, power]) => ({ brand, power: Math.round(power * 10) / 10 })
+        );
 
-        console.log(data.length);
+        // Sort highest to lowest
+        aggregated.sort((a, b) => b.power - a.power);
 
-        console.log(d3.max(data, d => d.power));
-
-        console.log(d3.min(data, d => d.power));
-
-        console.log(d3.extent(data, d => d.power));
-
-        data.sort((a, b) => b.power - a.power);
-
-        console.log(data);
-
-        createBarChart(data);
+        console.log(aggregated);
+        createBarChart(aggregated);
 
     }).catch(err => {
         console.error("D3 CSV Error:", err);
@@ -255,35 +250,56 @@ function loadD3CSV() {
 }
 
 const createBarChart = (data) => {
-
     d3.select(".responsive-svg-container").selectAll("*").remove();
 
-    const svgWidth = 1200;
-    const svgHeight = 1600;
-
-    const barHeight = 20;
-    const barSpacing = 8;
+    const margin = { left: 210, right: 60 };
+    const svgWidth = 800;
+    const barAreaWidth = svgWidth - margin.left - margin.right;
+    const svgHeight = data.length * 30 + 20;
 
     const svg = d3.select(".responsive-svg-container")
         .append("svg")
         .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
-        .style("border", "1px solid black")
         .style("width", "100%")
         .style("height", "auto");
 
-    svg.selectAll("rect")
+    const xScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.power)])
+        .range([0, barAreaWidth]);
+
+    const yScale = d3.scaleBand()
+        .domain(data.map(d => d.brand))
+        .range([0, svgHeight])
+        .padding(0.2);
+
+    const barGroup = svg
+        .selectAll("g")
         .data(data)
-        .join("rect")
-        .attr("class", d => {
-            console.log(d);
-            return `bar bar-${d.power}`;
-        })
-        .attr("width", d => d.power)
-        .attr("height", barHeight)
-        .attr("x", 0)
-        .attr("y", (d, i) => i * (barHeight + barSpacing))
-        .attr("fill", "blue");
-}
+        .join("g")
+        .attr("transform", d => `translate(0, ${yScale(d.brand)})`);
+
+    barGroup
+        .append("rect")
+        .attr("class", "bar-rect")
+        .attr("x", margin.left)
+        .attr("y", 0)
+        .attr("width", d => xScale(d.power))
+        .attr("height", yScale.bandwidth());
+
+    barGroup
+        .append("text")
+        .attr("class", "bar-label")
+        .text(d => d.brand)
+        .attr("x", margin.left - 5)
+        .attr("y", yScale.bandwidth() / 2 + 4);
+
+    barGroup
+        .append("text")
+        .attr("class", "bar-value")
+        .text(d => d.power)
+        .attr("x", d => margin.left + xScale(d.power) + 4)
+        .attr("y", yScale.bandwidth() / 2 + 4);
+};
 
 // ── Keyboard navigation for modal ────────────────────────────────
 document.addEventListener("keydown", function (e) {
