@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="showPage('home')">
+        <img src="images/PowerIcon.png" alt="Logo">
+    </div>
+
+    <nav>
+        <ul>
+            <li onclick="showPage('home')" id="nav-home" class="active">Home</li>
+            <li onclick="showPage('tv')" id="nav-tv">Televisions</li>
+            <li onclick="showPage('storyboard')" id="nav-storyboard">Storyboard</li>
+            <li onclick="showPage('svg')" id="nav-svg">Ex 4</li>
+            <li onclick="showPage('about')" id="nav-about">About Us</li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <section id="home">
+        <h1>Home</h1>
+        <p>Welcome to the Appliance Energy Consumption Website.</p>
+        <p>This site explores energy usage of household appliances in Australia.</p>
+    </section>
+
+    <section id="tv" style="display:none;">
+        <h1>Televisions Energy Usage</h1>
+        <p>Sample data for TV energy consumption in Australia.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Size (inch)</th>
+                    <th>Power Usage (W)</th>
+                    <th>Energy Rating</th>
+                </tr>
+            </thead>
+            <tbody id="tv-table-body">
+                <!-- rows populated from CSV via JS -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="storyboard" style="display:none;">
+        <h1>Storyboard</h1>
+        <p>Explore visual stories about television energy usage in Australia.</p>
+
+        <div class="home-grid">
+
+            <div class="home-card">
+                <div class="home-card-icon">📺</div>
+                <h2>TV Screen Frequency in Australia</h2>
+                <p>
+                    Find out which TV Screens are the most frequent in Australia.
+                </p>
+                <a href="#" class="storyboard-link" onclick="openStoryboard('frequency')">
+                    📖 View Storyboard
+                </a>
+            </div>
+
+            <div class="home-card">
+                <div class="home-card-icon">⚡</div>
+                <h2>Screen Technology Power Consumption</h2>
+                <p>
+                    Compare how different screen technologies consume varying amounts of electricity.
+                </p>
+                <a href="#" class="storyboard-link" onclick="openStoryboard('technology')">
+                    📖 View Storyboard
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- svg drawing — exercise 4.1 -->
+    <section id="svg" style="display:none;">
+        <h1>SVG House &amp; Garden</h1>
+
+        <div class="svg-canvas-wrapper">
+            <svg id="house-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg"
+                 style="width:100%; max-width:900px; display:block; margin:0 auto; border-radius:12px;">
+
+                <rect x="0" y="0" width="800" height="520" fill="#87CEEB"/>
+
+                <!-- curved hill using quadratic bezier (Q command) -->
+                <path d="M0,340 Q200,300 400,320 Q600,340 800,315 L800,520 L0,520 Z"
+                      fill="#4a7c3f" stroke="none"/>
+                <path d="M0,370 Q200,355 400,360 Q600,365 800,352 L800,520 L0,520 Z"
+                      fill="#5d9e50" stroke="none"/>
+
+                <circle cx="680" cy="80" r="48" fill="#FFD700" stroke="#FFA500" stroke-width="3"/>
+
+                <g opacity="0.92">
+                    <ellipse cx="150" cy="75" rx="55" ry="28" fill="white"/>
+                    <ellipse cx="190" cy="62" rx="38" ry="25" fill="white"/>
+                    <ellipse cx="112" cy="68" rx="32" ry="22" fill="white"/>
+                </g>
+                <g opacity="0.85">
+                    <ellipse cx="490" cy="55" rx="48" ry="22" fill="white"/>
+                    <ellipse cx="525" cy="44" rx="33" ry="20" fill="white"/>
+                    <ellipse cx="460" cy="48" rx="28" ry="18" fill="white"/>
+                </g>
+
+                <rect x="250" y="240" width="280" height="200"
+                      fill="#c0825a" stroke="#8B5E3C" stroke-width="2"/>
+
+                <!-- roof triangle using M (moveto) and L (lineto) -->
+                <path d="M230,245 L390,130 L550,245 Z"
+                      fill="#7a3b1e" stroke="#5a2b0e" stroke-width="2"/>
+
+                <rect x="460" y="150" width="36" height="70"
+                      fill="#8B5E3C" stroke="#5a2b0e" stroke-width="1.5"/>
+                <rect x="455" y="147" width="46" height="10"
+                      fill="#5a2b0e" stroke="#5a2b0e" stroke-width="1"/>
+
+                <line x1="468" y1="140" x2="472" y2="120" stroke="#aaa" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+                <line x1="478" y1="140" x2="484" y2="115" stroke="#bbb" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                <line x1="488" y1="143" x2="495" y2="118" stroke="#aaa" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+                <!-- windows share stroke and fill via the group -->
+                <g id="window-group" stroke="#5a2b0e" stroke-width="1.5" fill="#d0ecf7">
+                    <g transform="translate(275, 275)">
+                        <rect x="0" y="0" width="65" height="55" rx="3"/>
+                        <line x1="0" y1="27" x2="65" y2="27" stroke="#5a2b0e" stroke-width="1"/>
+                        <line x1="32" y1="0" x2="32" y2="55" stroke="#5a2b0e" stroke-width="1"/>
+                    </g>
+                    <g transform="translate(440, 275)">
+                        <rect x="0" y="0" width="65" height="55" rx="3"/>
+                        <line x1="0" y1="27" x2="65" y2="27" stroke="#5a2b0e" stroke-width="1"/>
+                        <line x1="32" y1="0" x2="32" y2="55" stroke="#5a2b0e" stroke-width="1"/>
+                    </g>
+                </g>
+
+                <rect x="358" y="350" width="64" height="90"
+                      fill="#5a2b0e" stroke="#3d1a08" stroke-width="1.5" rx="3"/>
+                <!-- arch drawn with a quadratic bezier over the door rect -->
+                <path d="M358,355 Q390,325 422,355" fill="#5a2b0e" stroke="#3d1a08" stroke-width="1.5"/>
+                <circle cx="415" cy="398" r="5" fill="#FFD700" stroke="#b8960c" stroke-width="1"/>
+
+                <path d="M355,440 Q330,470 310,500 L470,500 Q450,470 425,440 Z"
+                      fill="#c8a87a" stroke="#a07840" stroke-width="1.5" opacity="0.85"/>
+
+                <g transform="translate(155, 0)">
+                    <rect x="0" y="370" width="14" height="60" fill="#6B3A2A"/>
+                    <ellipse cx="7" cy="358" rx="38" ry="28" fill="#2d7a2d"/>
+                    <ellipse cx="7" cy="340" rx="30" ry="25" fill="#3a9e3a"/>
+                    <ellipse cx="7" cy="322" rx="22" ry="20" fill="#4ab84a"/>
+                    <circle cx="7" cy="310" r="14" fill="#3a9e3a"/>
+                </g>
+
+                <g transform="translate(610, 0)">
+                    <rect x="0" y="360" width="12" height="65" fill="#6B3A2A"/>
+                    <ellipse cx="6" cy="348" rx="33" ry="25" fill="#2d7a2d"/>
+                    <ellipse cx="6" cy="330" rx="26" ry="22" fill="#3a9e3a"/>
+                    <circle cx="6" cy="316" r="16" fill="#4ab84a"/>
+                </g>
+
+                <line x1="100" y1="385" x2="230" y2="378" stroke="#d4b483" stroke-width="3"/>
+                <line x1="100" y1="400" x2="230" y2="393" stroke="#d4b483" stroke-width="3"/>
+                <g stroke="#c8a060" stroke-width="4" stroke-linecap="round">
+                    <line x1="105" y1="370" x2="105" y2="415"/>
+                    <line x1="125" y1="370" x2="125" y2="415"/>
+                    <line x1="145" y1="370" x2="145" y2="415"/>
+                    <line x1="165" y1="370" x2="165" y2="415"/>
+                    <line x1="185" y1="370" x2="185" y2="415"/>
+                    <line x1="205" y1="370" x2="205" y2="415"/>
+                    <line x1="225" y1="370" x2="225" y2="415"/>
+                </g>
+
+                <line x1="570" y1="378" x2="700" y2="385" stroke="#d4b483" stroke-width="3"/>
+                <line x1="570" y1="393" x2="700" y2="400" stroke="#d4b483" stroke-width="3"/>
+                <g stroke="#c8a060" stroke-width="4" stroke-linecap="round">
+                    <line x1="575" y1="370" x2="575" y2="415"/>
+                    <line x1="595" y1="370" x2="595" y2="415"/>
+                    <line x1="615" y1="370" x2="615" y2="415"/>
+                    <line x1="635" y1="370" x2="635" y2="415"/>
+                    <line x1="655" y1="370" x2="655" y2="415"/>
+                    <line x1="675" y1="370" x2="675" y2="415"/>
+                    <line x1="695" y1="370" x2="695" y2="415"/>
+                </g>
+
+                <g>
+                    <circle cx="220" cy="365" r="6" fill="#FF6B6B"/>
+                    <circle cx="235" cy="358" r="5" fill="#FFD700"/>
+                    <circle cx="248" cy="363" r="6" fill="#FF8C69"/>
+                </g>
+                <g>
+                    <circle cx="550" cy="363" r="6" fill="#FF6B6B"/>
+                    <circle cx="565" cy="357" r="5" fill="#FFD700"/>
+                    <circle cx="580" cy="362" r="6" fill="#da88ff"/>
+                </g>
+
+            </svg>
+        </div>
+
+        <!-- shape reference table -->
+        <h2>Shape Reference Table</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Key Attributes</th>
+                    <th>Used For</th>
+                    <th>Example in Code</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>Sky background</td>
+        <td><code>&lt;rect x="0" y="0" width="800" height="520" fill="#87CEEB"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>House body</td>
+        <td><code>&lt;rect x="250" y="240" width="280" height="200" fill="#c0825a" stroke="#8B5E3C" stroke-width="2"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height, rx</td>
+        <td>Window (left)</td>
+        <td><code>&lt;rect x="0" y="0" width="65" height="55" rx="3" fill="#d0ecf7" stroke="#5a2b0e" stroke-width="1.5"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height, rx</td>
+        <td>Window (right)</td>
+        <td><code>&lt;rect x="0" y="0" width="65" height="55" rx="3" fill="#d0ecf7" stroke="#5a2b0e" stroke-width="1.5"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height, rx</td>
+        <td>Door</td>
+        <td><code>&lt;rect x="358" y="350" width="64" height="90" fill="#5a2b0e" stroke="#3d1a08" stroke-width="1.5" rx="3"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>Chimney body</td>
+        <td><code>&lt;rect x="460" y="150" width="36" height="70" fill="#8B5E3C" stroke="#5a2b0e" stroke-width="1.5"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>Chimney cap</td>
+        <td><code>&lt;rect x="455" y="147" width="46" height="10" fill="#5a2b0e" stroke="#5a2b0e" stroke-width="1"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>Tree trunk (left)</td>
+        <td><code>&lt;rect x="0" y="370" width="14" height="60" fill="#6B3A2A"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>rect</td>
+        <td>x, y, width, height</td>
+        <td>Tree trunk (right)</td>
+        <td><code>&lt;rect x="0" y="360" width="12" height="65" fill="#6B3A2A"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Sun</td>
+        <td><code>&lt;circle cx="680" cy="80" r="48" fill="#FFD700" stroke="#FFA500" stroke-width="3"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Door knob</td>
+        <td><code>&lt;circle cx="415" cy="398" r="5" fill="#FFD700" stroke="#b8960c" stroke-width="1"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Left tree crown top</td>
+        <td><code>&lt;circle cx="7" cy="310" r="14" fill="#3a9e3a"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Right tree crown top</td>
+        <td><code>&lt;circle cx="6" cy="316" r="16" fill="#4ab84a"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Left fence flowers</td>
+        <td><code>&lt;circle cx="220" cy="365" r="6" fill="#FF6B6B"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>circle</td>
+        <td>cx, cy, r</td>
+        <td>Right fence flowers</td>
+        <td><code>&lt;circle cx="550" cy="363" r="6" fill="#FF6B6B"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>ellipse</td>
+        <td>cx, cy, rx, ry</td>
+        <td>Cloud (left group)</td>
+        <td><code>&lt;ellipse cx="150" cy="75" rx="55" ry="28" fill="white"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>ellipse</td>
+        <td>cx, cy, rx, ry</td>
+        <td>Cloud (right group)</td>
+        <td><code>&lt;ellipse cx="490" cy="55" rx="48" ry="22" fill="white"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>ellipse</td>
+        <td>cx, cy, rx, ry</td>
+        <td>Left tree foliage layers</td>
+        <td><code>&lt;ellipse cx="7" cy="358" rx="38" ry="28" fill="#2d7a2d"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>ellipse</td>
+        <td>cx, cy, rx, ry</td>
+        <td>Right tree foliage layers</td>
+        <td><code>&lt;ellipse cx="6" cy="348" rx="33" ry="25" fill="#2d7a2d"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>d (M, Q, L, Z)</td>
+        <td>Ground hill (back layer)</td>
+        <td><code>&lt;path d="M0,340 Q200,300 400,320 Q600,340 800,315 L800,520 L0,520 Z" fill="#4a7c3f"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>d (M, L, Z)</td>
+        <td>Roof triangle</td>
+        <td><code>&lt;path d="M230,245 L390,130 L550,245 Z" fill="#7a3b1e" stroke="#5a2b0e" stroke-width="2"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>d (M, Q)</td>
+        <td>Door arch</td>
+        <td><code>&lt;path d="M358,355 Q390,325 422,355" fill="#5a2b0e" stroke="#3d1a08" stroke-width="1.5"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>d (M, Q, L, Z)</td>
+        <td>Garden walkway</td>
+        <td><code>&lt;path d="M355,440 Q330,470 310,500 L470,500 Q450,470 425,440 Z" fill="#c8a87a" stroke="#a07840" stroke-width="1.5" opacity="0.85"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Chimney smoke</td>
+        <td><code>&lt;line x1="468" y1="140" x2="472" y2="120" stroke="#aaa" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Window dividers (horizontal)</td>
+        <td><code>&lt;line x1="0" y1="27" x2="65" y2="27" stroke="#5a2b0e" stroke-width="1"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Window dividers (vertical)</td>
+        <td><code>&lt;line x1="32" y1="0" x2="32" y2="55" stroke="#5a2b0e" stroke-width="1"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Left fence rails</td>
+        <td><code>&lt;line x1="100" y1="385" x2="230" y2="378" stroke="#d4b483" stroke-width="3"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Left fence posts</td>
+        <td><code>&lt;line x1="105" y1="370" x2="105" y2="415" stroke="#c8a060" stroke-width="4" stroke-linecap="round"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Right fence rails</td>
+        <td><code>&lt;line x1="570" y1="378" x2="700" y2="385" stroke="#d4b483" stroke-width="3"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>line</td>
+        <td>x1, y1, x2, y2</td>
+        <td>Right fence posts</td>
+        <td><code>&lt;line x1="575" y1="370" x2="575" y2="415" stroke="#c8a060" stroke-width="4" stroke-linecap="round"/&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>opacity</td>
+        <td>Left cloud group</td>
+        <td><code>&lt;g opacity="0.92"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>opacity</td>
+        <td>Right cloud group</td>
+        <td><code>&lt;g opacity="0.85"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>id, stroke, fill</td>
+        <td>Window group (shared styling)</td>
+        <td><code>&lt;g id="window-group" stroke="#5a2b0e" stroke-width="1.5" fill="#d0ecf7"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>transform</td>
+        <td>Left tree group</td>
+        <td><code>&lt;g transform="translate(155, 0)"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>transform</td>
+        <td>Right tree group</td>
+        <td><code>&lt;g transform="translate(610, 0)"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>stroke, stroke-width, stroke-linecap</td>
+        <td>Left fence posts group</td>
+        <td><code>&lt;g stroke="#c8a060" stroke-width="4" stroke-linecap="round"&gt;</code></td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>stroke, stroke-width, stroke-linecap</td>
+        <td>Right fence posts group</td>
+        <td><code>&lt;g stroke="#c8a060" stroke-width="4" stroke-linecap="round"&gt;</code></td>
+    </tr>
+</tbody>
+        </table>
+
+        <h2>DOM View</h2>
+        <p>A screenshot of the SVG structure seen in the browser's Developer Tools DOM panel.</p>
+
+        <div class="dom-screenshot-wrapper">
+            <img src="images/dom.png" alt="DOM screenshot of the SVG house" class="dom-screenshot-img"
+                 onerror="this.style.display='none'; document.getElementById('dom-placeholder').style.display='flex';">
+            <div class="dom-placeholder" id="dom-placeholder">
+                <span class="dom-placeholder-icon">🖥️</span>
+                <p>Place your DOM screenshot here as <code>images/dom.png</code></p>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="about" style="display:none;">
+        <h1>About Us</h1>
+
+        <div class="about-container">
+
+            <div class="about-card">
+                <h2>Who We Are</h2>
+                <p>
+                    This website was developed as part of an academic project to raise awareness about
+                    household appliance energy consumption. It focuses on helping users understand how
+                    everyday appliances, such as televisions, impact electricity usage.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2>Our Goal</h2>
+                <p>
+                    Our goal is to provide simple and accessible information that allows users to make
+                    smarter decisions when choosing appliances. By understanding energy usage, users
+                    can reduce electricity costs and contribute to a more sustainable environment.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2>What We Provide</h2>
+                <ul>
+                    <li>📊 Realistic appliance energy data</li>
+                    <li>📺 Television power consumption insights</li>
+                    <li>⚡ Easy-to-read comparison tables</li>
+                    <li>🌱 Awareness of energy efficiency</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h2>Future Improvements</h2>
+                <p>
+                    In the future, this platform can be expanded to include more appliances,
+                    interactive charts, and personalized recommendations for energy-saving solutions.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- footer -->
+<footer>
+    <p>© 2026 Tee Ming Jun | INTI International Subang</p>
+</footer>
+
+<!-- storyboard modal — shown/hidden via JS -->
+<div id="storyboard-modal" class="modal-overlay" onclick="closeStoryboardOnOverlay(event)">
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h2 id="modal-title">Storyboard</h2>
+            <button class="modal-close" onclick="closeStoryboard()">✕</button>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="slide-image-wrapper">
+                <img id="slide-img" src="" alt="Storyboard Panel">
+                <div class="slide-placeholder" id="slide-placeholder">
+                    <span class="placeholder-icon">🖼️</span>
+                    <span class="placeholder-label" id="placeholder-label">Panel 1</span>
+                </div>
+            </div>
+
+            <p id="slide-desc" class="slide-description">Description goes here.</p>
+
+            <div class="slide-nav">
+                <button class="slide-btn" onclick="prevSlide()">&#8592; Prev</button>
+                <span id="slide-counter" class="slide-counter">1 / 6</span>
+                <button class="slide-btn" onclick="nextSlide()">Next &#8594;</button>
+            </div>
+
+            <div class="slide-dots" id="slide-dots"></div>
+        </div>
+
+    </div>
+</div>
+
+<script src="./js/script.js"></script>
+</body>
+</html>
